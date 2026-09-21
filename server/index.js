@@ -258,20 +258,24 @@ app.post("/api/generate", async (req, res) => {
   }
 });
 
-const distDir = path.join(rootDir, "dist");
-app.use(express.static(distDir));
-app.use((req, res, next) => {
-  if (req.method !== "GET" || req.path.startsWith("/api")) {
-    next();
-    return;
-  }
-  res.sendFile(path.join(distDir, "index.html"), (err) => {
-    if (err) next();
+if (!process.env.VERCEL) {
+  const distDir = path.join(rootDir, "dist");
+  app.use(express.static(distDir));
+  app.use((req, res, next) => {
+    if (req.method !== "GET" || req.path.startsWith("/api")) {
+      next();
+      return;
+    }
+    res.sendFile(path.join(distDir, "index.html"), (err) => {
+      if (err) next();
+    });
   });
-});
 
-app.listen(PORT, () => {
-  const hasKey = Boolean(getApiKey());
-  console.log(`КАДР API: http://localhost:${PORT}`);
-  console.log(hasKey ? "Gemini-ключ загружен из .env" : "ВНИМАНИЕ: в .env нет GEMINI_API_KEY");
-});
+  app.listen(PORT, () => {
+    const hasKey = Boolean(getApiKey());
+    console.log(`КАДР API: http://localhost:${PORT}`);
+    console.log(hasKey ? "Gemini-ключ загружен из .env" : "ВНИМАНИЕ: в .env нет GEMINI_API_KEY");
+  });
+}
+
+export default app;

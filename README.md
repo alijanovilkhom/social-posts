@@ -28,3 +28,11 @@ npm run dev
 ```
 
 Откройте [http://localhost:5173](http://localhost:5173). Ключ читается только с сервера из `.env`. После изменения `.env` сервер перезапускается сам.
+
+## Деплой на Vercel
+
+Это Vite + Express, не Next.js. В настройках проекта Framework Preset должен быть **Vite**, не Next.js.
+
+1. Добавьте переменную окружения `GEMINI_API_KEY` (и при желании `GEMINI_MODEL`).
+2. Root Directory — папка с этим `package.json`.
+3. Задеплойте снова. Сборка: `npm run build`, статика из `dist`, API — `/api/health` и `/api/generate`.
