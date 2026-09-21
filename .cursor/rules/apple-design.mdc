@@ -1,0 +1,3 @@
+When reviewing or improving UI in this project, follow `.agents/skills/apple-design/SKILL.md`.
+Load HIG files from `.agents/skills/apple-design/references/hig/` before design feedback.
+This is a web app: apply Apple principles and foundations, not iOS tab-bar conventions.
